@@ -26,7 +26,9 @@ class DeleteHandler extends Handlers
     {
         $id = $request->route('id');
 
-        $model = static::getModel()::find($id);
+        $model = static::getModel()::where('id', $id)
+            ->where('employee_id', auth()->user()->employee->id) // Filter berdasarkan user login
+            ->first();
 
         if (!$model) {
             return static::sendNotFoundResponse();

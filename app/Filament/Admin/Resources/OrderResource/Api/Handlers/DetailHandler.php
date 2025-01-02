@@ -16,11 +16,12 @@ class DetailHandler extends Handlers
     public function handler(Request $request)
     {
         $id = $request->route('id');
+        
+        $userId = auth()->user()->id;
 
         $query = QueryBuilder::for(static::getModel())
             ->with(['products', 'employee', 'discount', 'client', 'branchCompany'])
-            ->whereHas('client.employee', fn ($query) => $query->where('user_id', auth()->user()->id))
-            ->whereHas('branchCompany.employee', fn ($query) => $query->where('user_id', auth()->user()->id))
+            ->whereHas('employee', fn ($query) => $query->where('user_id', $userId))
             ->where('id', $id)
             ->first();
 

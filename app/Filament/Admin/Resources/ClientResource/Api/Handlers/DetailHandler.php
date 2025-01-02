@@ -20,6 +20,7 @@ class DetailHandler extends Handlers
         $query = QueryBuilder::for(static::getModel())
             ->with(['branch_company', 'department', 'employee'])
             ->where('id', $id)
+            ->where('employee_id', auth()->user()->employee->id) 
             ->first();
 
         if (!$query) {

@@ -33,10 +33,11 @@ class UpdateHandler extends Handlers
             'phone' => 'required|string|max:20',
             'address' => 'required|string|max:500',
             'branch_company_id' => 'required|exists:branch_companies,id',
-            'employee_id' => 'nullable|exists:employees,id',
         ]);
 
-        $model = static::getModel()::find($id);
+        $model = static::getModel()::where('id', $id)
+            ->where('employee_id', auth()->user()->employee->id) // Filter berdasarkan user login
+            ->first();
 
         if (!$model) {
             return static::sendNotFoundResponse();

@@ -31,11 +31,11 @@ class CreateHandler extends Handlers
             'phone' => 'required|string|max:20',
             'address' => 'required|string|max:500',
             'branch_company_id' => 'required|exists:branch_companies,id',
-            'employee_id' => 'nullable|exists:employees,id',
         ]);
 
         $model = new (static::getModel());
         $model->fill($validated);
+        $model->employee_id = auth()->user()->employee->id;
         $model->save();
 
         return static::sendSuccessResponse($model, 'Successfully Create Client');

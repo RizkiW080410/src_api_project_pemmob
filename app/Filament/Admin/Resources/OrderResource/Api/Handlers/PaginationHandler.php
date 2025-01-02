@@ -14,11 +14,12 @@ class PaginationHandler extends Handlers
 
     public function handler()
     {
+        $userId = auth()->user()->id;
+
         $query = QueryBuilder::for(static::getModel())
             ->allowedFilters(['status', 'employee_id', 'discount_id', 'client_id', 'branch_company_id'])
             ->with(['products', 'employee', 'discount', 'client', 'branchCompany'])
-            ->whereHas('client.employee', fn ($query) => $query->where('user_id', auth()->user()->id))
-            ->whereHas('branchCompany.employee', fn ($query) => $query->where('user_id', auth()->user()->id))
+            ->whereHas('employee', fn ($query) => $query->where('user_id', $userId))
             ->paginate(request()->query('per_page', 10))
             ->appends(request()->query());
 

@@ -17,6 +17,7 @@ class PaginationHandler extends Handlers
         $query = QueryBuilder::for(static::getModel())
             ->allowedFilters(['name', 'email', 'address', 'branch_company_id'])
             ->with(['branch_company', 'department', 'employee'])
+            ->where('employee_id', auth()->user()->employee->id) // Filter berdasarkan user login
             ->paginate(request()->query('per_page', 10))
             ->appends(request()->query());
 
