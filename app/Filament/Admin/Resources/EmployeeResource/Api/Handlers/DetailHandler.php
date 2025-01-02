@@ -15,15 +15,21 @@ class DetailHandler extends Handlers
 
     public function handler(Request $request)
     {
-        $id = $request->route('id');
+        // Mendapatkan user yang sedang login
+        $user = $request->user();
 
+        if (!$user) {
+            return static::sendErrorResponse('Unauthorized', 401);
+        }
+
+        // Mencari employee berdasarkan user_id
         $query = QueryBuilder::for(static::getModel())
             ->with(['department', 'branch_company', 'client', 'user', 'orders'])
-            ->where('id', $id)
+            ->where('user_id', $user->id)
             ->first();
 
         if (!$query) {
-            return static::sendNotFoundResponse();
+            return static::sendNotFoundResponse('Employee not found for this user.');
         }
 
         return static::sendSuccessResponse($query, 'Employee Details Retrieved Successfully');

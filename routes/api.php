@@ -164,7 +164,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('employees')->group(function () {
         Route::post('/', [EmployeeCreateHandler::class, 'handler'])->name('api.employees.create');
         Route::get('/', [EmployeePaginationHandler::class, 'handler'])->name('api.employees.pagination');
-        Route::get('/{id}', [EmployeeDetailHandler::class, 'handler'])->name('api.employees.detail');
+        Route::get('/details', [EmployeeDetailHandler::class, 'handler'])->name('api.employees.detail');
         Route::put('/{id}', [EmployeeUpdateHandler::class, 'handler'])->name('api.employees.update');
         Route::delete('/{id}', [EmployeeDeleteHandler::class, 'handler'])->name('api.employees.delete');
     });
@@ -217,21 +217,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{id}', [ProductDeleteHandler::class, 'handler'])->name('api.products.delete');
     });
 
-    // Route::get('/product-categories', function () {
-    //     $categories = \App\Models\Product::select('category_product')->distinct()->get();
-    //     return response()->json($categories);
-    // })->name('api.products.categories');
-    
-    // Route::get('/products', function (Request $request) {
-    //     $query = \App\Models\Product::query();
-    
-    //     if ($request->has('category_product')) {
-    //         $query->where('category_product', $request->query('category_product'));
-    //     }
-    
-    //     return response()->json($query->get());
-    // })->name('api.products.filtered');
-
     Route::prefix('regulations')->group(function () {
         Route::post('/', [RegulationCreateHandler::class, 'handler'])->name('api.regulations.create');
         Route::get('/', [RegulationPaginationHandler::class, 'handler'])->name('api.regulations.pagination');
@@ -254,13 +239,5 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/{id}', [TypeProductDetailHandler::class, 'handler'])->name('api.typeproducts.detail');
         Route::put('/{id}', [TypeProductUpdateHandler::class, 'handler'])->name('api.typeproducts.update');
         Route::delete('/{id}', [TypeProductDeleteHandler::class, 'handler'])->name('api.typeproducts.delete');
-    });
-
-    Route::prefix('users')->group(function () {
-        Route::post('/', [UserCreateHandler::class, 'handler'])->name('api.users.create');
-        Route::get('/', [UserPaginationHandler::class, 'handler'])->name('api.users.pagination');
-        Route::get('/{id}', [UserDetailHandler::class, 'handler'])->name('api.users.detail');
-        Route::put('/{id}', [UserUpdateHandler::class, 'handler'])->name('api.users.update');
-        Route::delete('/{id}', [UserDeleteHandler::class, 'handler'])->name('api.users.delete');
     });
 });
