@@ -20,7 +20,7 @@ class DetailHandler extends Handlers
         $userId = auth()->user()->id;
 
         $query = QueryBuilder::for(static::getModel())
-            ->with(['products', 'employee', 'discount', 'client', 'branchCompany'])
+            ->with(['products','products.priceProduct', 'employee', 'discount', 'client', 'branchCompany'])
             ->whereHas('employee', fn ($query) => $query->where('user_id', $userId))
             ->where('id', $id)
             ->first();

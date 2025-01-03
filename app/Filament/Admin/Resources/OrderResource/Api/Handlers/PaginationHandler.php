@@ -18,7 +18,7 @@ class PaginationHandler extends Handlers
 
         $query = QueryBuilder::for(static::getModel())
             ->allowedFilters(['status', 'employee_id', 'discount_id', 'client_id', 'branch_company_id'])
-            ->with(['products', 'employee', 'discount', 'client', 'branchCompany'])
+            ->with(['products','products.priceProduct', 'employee', 'discount', 'client', 'branchCompany'])
             ->whereHas('employee', fn ($query) => $query->where('user_id', $userId))
             ->paginate(request()->query('per_page', 10))
             ->appends(request()->query());
