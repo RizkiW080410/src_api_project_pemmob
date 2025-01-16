@@ -99,12 +99,6 @@ use App\Filament\Admin\Resources\TypeProductResource\Api\Handlers\DetailHandler 
 use App\Filament\Admin\Resources\TypeProductResource\Api\Handlers\UpdateHandler as TypeProductUpdateHandler;
 use App\Filament\Admin\Resources\TypeProductResource\Api\Handlers\DeleteHandler as TypeProductDeleteHandler;
 
-use App\Filament\Admin\Resources\UserResource\Api\Handlers\CreateHandler as UserCreateHandler;
-use App\Filament\Admin\Resources\UserResource\Api\Handlers\PaginationHandler as UserPaginationHandler;
-use App\Filament\Admin\Resources\UserResource\Api\Handlers\DetailHandler as UserDetailHandler;
-use App\Filament\Admin\Resources\UserResource\Api\Handlers\UpdateHandler as UserUpdateHandler;
-use App\Filament\Admin\Resources\UserResource\Api\Handlers\DeleteHandler as UserDeleteHandler;
-
 Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 
 Route::middleware('auth:sanctum')->group(function () {
